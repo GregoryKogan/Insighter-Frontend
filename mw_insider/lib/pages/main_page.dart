@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:mw_insider/state_controller/state_controller.dart';
+import 'package:mw_insider/state_controllers/state_controller.dart';
 import 'package:mw_insider/views/about.dart';
 import 'package:mw_insider/views/home.dart';
 import 'package:mw_insider/views/profile.dart';
