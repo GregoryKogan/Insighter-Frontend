@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 class About extends StatelessWidget {
   const About({Key? key}) : super(key: key);
@@ -8,7 +9,6 @@ class About extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: const Text('About page'),
-        backgroundColor: Colors.indigoAccent[700],
       ),
       body: const Center(child: Text('About page')),
     );

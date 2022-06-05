@@ -8,7 +8,6 @@ class Stroll extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Stroll page'),
-        backgroundColor: Colors.indigoAccent[700],
       ),
       body: const Center(child: Text('Stroll page')),
     );

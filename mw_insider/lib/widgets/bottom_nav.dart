@@ -33,9 +33,9 @@ class _BottomNavState extends State<BottomNav> {
             icon: Icon(Icons.question_answer), label: 'About'),
       ],
       currentIndex: _selectedIndex,
-      selectedItemColor: Colors.indigoAccent[700],
+      selectedItemColor: context.theme.primaryColor,
       onTap: _onItemTapped,
-      unselectedItemColor: Colors.deepPurple[900],
+      unselectedItemColor: context.theme.disabledColor,
     );
   }
 }
