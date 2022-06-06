@@ -7,6 +7,10 @@ class Themes {
     primaryColor: const Color(0xff965027),
     disabledColor: const Color(0xff9699a3),
     toggleableActiveColor: const Color(0xff33635c),
+    progressIndicatorTheme: const ProgressIndicatorThemeData(
+      color: Color(0xff9699a3),
+      circularTrackColor: Color(0xff8f5e15),
+    ),
     appBarTheme: const AppBarTheme(
       backgroundColor: Color(0xff343b58),
     ),
@@ -17,6 +21,10 @@ class Themes {
     primaryColor: const Color(0xffff9e64),
     disabledColor: const Color(0xff565f89),
     toggleableActiveColor: const Color(0xff73daca),
+    progressIndicatorTheme: const ProgressIndicatorThemeData(
+      color: Color(0xff565f89),
+      circularTrackColor: Color(0xffe0af68),
+    ),
     appBarTheme: const AppBarTheme(
       backgroundColor: Color(0xff414868),
     ),

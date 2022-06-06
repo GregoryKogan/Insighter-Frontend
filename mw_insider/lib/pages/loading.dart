@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:mw_insider/configuration/config.dart';
 import 'dart:async';
 import 'package:http/http.dart' as http;
+import 'package:mw_insider/widgets/loading_circle.dart';
 
 Future<String> pingServer() async {
   final response = await http.get(Uri.parse('${backendUrl}ping'));
@@ -42,7 +43,7 @@ class _LoadingPageState extends State<LoadingPage> {
         future: serverResponse,
         builder: (context, snapshot) {
           if (snapshot.hasData) validateResponse(snapshot.data!);
-          return const CircularProgressIndicator();
+          return const LoadingCircle();
         },
       )),
     );
