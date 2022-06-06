@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:mw_insider/pages/loading.dart';
@@ -9,6 +10,7 @@ import 'package:mw_insider/theming/themes.dart';
 
 void main() async {
   await GetStorage.init();
+  await SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
   runApp(const MyApp());
 }
 
