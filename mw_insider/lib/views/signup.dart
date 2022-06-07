@@ -6,6 +6,7 @@ import 'package:mw_insider/widgets/log_in_span.dart';
 import 'package:mw_insider/widgets/login_input.dart';
 import 'package:mw_insider/widgets/password_confirmation_input.dart';
 import 'package:mw_insider/widgets/password_input.dart';
+import 'package:mw_insider/widgets/scrollable_view.dart';
 import 'package:mw_insider/widgets/signup_button.dart';
 
 class SignUpView extends StatelessWidget {
@@ -24,27 +25,31 @@ class SignUpView extends StatelessWidget {
         return Future.value(false);
       },
       child: Scaffold(
-        body: Center(
-            child: Column(children: [
-          const Spacer(flex: 6),
-          const Text(
-            'Sign up',
-            style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
-          ),
-          const SizedBox(height: 20),
-          LoginInput(),
-          const SizedBox(height: 10),
-          PasswordInput(),
-          const SizedBox(height: 10),
-          PasswordConfirmationInput(),
-          const SizedBox(height: 10),
-          LoginSpan(),
-          const Spacer(flex: 1),
-          ErrorMessage(),
-          const Spacer(flex: 1),
-          SignupButton(),
-          const Spacer(flex: 12),
-        ])),
+        body: ScrollableView(
+          minHeight: 450,
+          screenHeightFactor: 1,
+          child: Center(
+              child: Column(children: [
+            const Spacer(flex: 6),
+            const Text(
+              'Sign up',
+              style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+            ),
+            const SizedBox(height: 20),
+            LoginInput(),
+            const SizedBox(height: 10),
+            PasswordInput(),
+            const SizedBox(height: 10),
+            PasswordConfirmationInput(),
+            const SizedBox(height: 10),
+            LoginSpan(),
+            const Spacer(flex: 1),
+            ErrorMessage(),
+            const Spacer(flex: 1),
+            SignupButton(),
+            const Spacer(flex: 12),
+          ])),
+        ),
       ),
     );
   }
