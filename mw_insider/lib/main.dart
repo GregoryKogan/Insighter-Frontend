@@ -2,8 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
+import 'package:mw_insider/pages/auth.dart';
 import 'package:mw_insider/pages/loading.dart';
 import 'package:mw_insider/pages/main_page.dart';
+import 'package:mw_insider/pages/no_connection.dart';
 import 'package:mw_insider/pages/unknown_route.dart';
 import 'package:mw_insider/theming/theme_service.dart';
 import 'package:mw_insider/theming/themes.dart';
@@ -33,6 +35,12 @@ class MyApp extends StatelessWidget {
         GetPage(
             name: '/loading',
             page: () => const LoadingPage(),
+            transition: Transition.fade),
+        GetPage(
+            name: '/auth', page: () => AuthPage(), transition: Transition.fade),
+        GetPage(
+            name: '/no_connection',
+            page: () => const NoConnectionPage(),
             transition: Transition.fade),
       ],
     );

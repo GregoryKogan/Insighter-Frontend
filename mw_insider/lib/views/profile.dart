@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:mw_insider/widgets/logout_button.dart';
 import 'package:mw_insider/widgets/theme_switch.dart';
 
 class Profile extends StatelessWidget {
@@ -16,6 +17,7 @@ class Profile extends StatelessWidget {
         children: const [
           Text('Profile page'),
           ThemeSwitch(),
+          LogoutButton(),
         ],
       )),
     );

@@ -1,22 +1,33 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:mw_insider/configuration/config.dart';
+import 'package:mw_insider/api/jwt.dart';
+import 'package:mw_insider/api/ping.dart';
 import 'dart:async';
-import 'package:http/http.dart' as http;
 import 'package:mw_insider/widgets/loading_circle.dart';
 
-Future<String> pingServer() async {
-  final response = await http.get(Uri.parse('${backendUrl}ping'));
+Future<String> isReadyToUse() async {
+  JwtService jwt = JwtService();
+  PingService pingService = PingService();
+  if (!await pingService.ping()) return 'no connection';
 
-  if (response.statusCode == 200) {
-    return response.body;
-  } else {
-    throw Exception('Failed to load album');
+  if (!await jwt.isLoggedIn() || !await jwt.isRefreshable()) {
+    await jwt.getNewTokens();
   }
+
+  if (await jwt.isLoggedIn() && await jwt.isRefreshable()) return 'ok';
+  return 'not logged in';
 }
 
-Future<void> validateResponse(String response) async {
-  if (response != '') Get.offNamed('/');
+void validateResponse(String readyToUse) {
+  Future.delayed(Duration.zero, () {
+    if (readyToUse == 'ok') {
+      Get.offNamed('/');
+    } else if (readyToUse == 'not logged in') {
+      Get.offNamed('/auth');
+    } else {
+      Get.offNamed('/no_connection');
+    }
+  });
 }
 
 class LoadingPage extends StatefulWidget {
@@ -27,12 +38,12 @@ class LoadingPage extends StatefulWidget {
 }
 
 class _LoadingPageState extends State<LoadingPage> {
-  late Future<String> serverResponse;
+  late Future<String> readyToUse;
 
   @override
   void initState() {
     super.initState();
-    serverResponse = pingServer();
+    readyToUse = isReadyToUse();
   }
 
   @override
@@ -40,7 +51,7 @@ class _LoadingPageState extends State<LoadingPage> {
     return Scaffold(
       body: Center(
           child: FutureBuilder<String>(
-        future: serverResponse,
+        future: readyToUse,
         builder: (context, snapshot) {
           if (snapshot.hasData) validateResponse(snapshot.data!);
           return const LoadingCircle();
