@@ -48,15 +48,20 @@ class _LoadingPageState extends State<LoadingPage> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: Center(
-          child: FutureBuilder<String>(
-        future: readyToUse,
-        builder: (context, snapshot) {
-          if (snapshot.hasData) validateResponse(snapshot.data!);
-          return const LoadingCircle();
-        },
-      )),
+    return Container(
+      color: context.theme.scaffoldBackgroundColor,
+      child: SafeArea(
+        child: Scaffold(
+          body: Center(
+              child: FutureBuilder<String>(
+            future: readyToUse,
+            builder: (context, snapshot) {
+              if (snapshot.hasData) validateResponse(snapshot.data!);
+              return const LoadingCircle();
+            },
+          )),
+        ),
+      ),
     );
   }
 }

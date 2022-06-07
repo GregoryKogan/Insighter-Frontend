@@ -21,9 +21,14 @@ class MainPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: Obx((() => views[stateController.selectedViewIndex.value])),
-      bottomNavigationBar: const BottomNav(),
+    return Container(
+      color: context.theme.scaffoldBackgroundColor,
+      child: SafeArea(
+        child: Scaffold(
+          body: Obx((() => views[stateController.selectedViewIndex.value])),
+          bottomNavigationBar: const BottomNav(),
+        ),
+      ),
     );
   }
 }

@@ -2,11 +2,15 @@ import 'package:get/get.dart';
 
 class StateController extends GetxController {
   final selectedViewIndex = 0.obs;
+
   final authView = 'log_in'.obs;
+
   final userPassword = ''.obs;
   final userPasswordConfirmation = ''.obs;
   final userLogin = ''.obs;
   final errorString = ''.obs;
+
+  final userProfileData = <String, dynamic>{}.obs;
 
   updateSelectedViewIndex(int index) {
     selectedViewIndex(index);
@@ -35,5 +39,9 @@ class StateController extends GetxController {
         errorString('');
       }
     });
+  }
+
+  updateUserProfileData(Map<String, dynamic> data) {
+    userProfileData(data);
   }
 }

@@ -24,31 +24,36 @@ class SignUpView extends StatelessWidget {
         goLogin();
         return Future.value(false);
       },
-      child: Scaffold(
-        body: ScrollableView(
-          minHeight: 450,
-          screenHeightFactor: 1,
-          child: Center(
-              child: Column(children: [
-            const Spacer(flex: 6),
-            const Text(
-              'Sign up',
-              style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+      child: Container(
+        color: context.theme.scaffoldBackgroundColor,
+        child: SafeArea(
+          child: Scaffold(
+            body: ScrollableView(
+              minHeight: 450,
+              screenHeightFactor: 1,
+              child: Center(
+                  child: Column(children: [
+                const Spacer(flex: 6),
+                const Text(
+                  'Sign up',
+                  style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+                ),
+                const SizedBox(height: 20),
+                LoginInput(),
+                const SizedBox(height: 10),
+                PasswordInput(),
+                const SizedBox(height: 10),
+                PasswordConfirmationInput(),
+                const SizedBox(height: 10),
+                LoginSpan(),
+                const Spacer(flex: 1),
+                ErrorMessage(),
+                const Spacer(flex: 1),
+                SignupButton(),
+                const Spacer(flex: 12),
+              ])),
             ),
-            const SizedBox(height: 20),
-            LoginInput(),
-            const SizedBox(height: 10),
-            PasswordInput(),
-            const SizedBox(height: 10),
-            PasswordConfirmationInput(),
-            const SizedBox(height: 10),
-            LoginSpan(),
-            const Spacer(flex: 1),
-            ErrorMessage(),
-            const Spacer(flex: 1),
-            SignupButton(),
-            const Spacer(flex: 12),
-          ])),
+          ),
         ),
       ),
     );

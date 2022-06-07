@@ -6,19 +6,24 @@ class UnknownRoutePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: Center(
-          child: Column(
-        children: [
-          const Text('Page not found'),
-          const Text('404'),
-          TextButton(
-              onPressed: () {
-                Get.toNamed('/');
-              },
-              child: const Text('Back'))
-        ],
-      )),
+    return Container(
+      color: context.theme.scaffoldBackgroundColor,
+      child: SafeArea(
+        child: Scaffold(
+          body: Center(
+              child: Column(
+            children: [
+              const Text('Page not found'),
+              const Text('404'),
+              TextButton(
+                  onPressed: () {
+                    Get.toNamed('/');
+                  },
+                  child: const Text('Back'))
+            ],
+          )),
+        ),
+      ),
     );
   }
 }

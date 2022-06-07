@@ -1,5 +1,4 @@
 import 'dart:convert';
-
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:jwt_decode/jwt_decode.dart';
 import 'package:http/http.dart' as http;
@@ -62,10 +61,8 @@ class JwtService {
   }
 
   Future<http.Response> makeBackendRequestAttempt(
-    String requestType,
-    String endpoint,
-    Map<String, dynamic>? body,
-  ) async {
+      String requestType, String endpoint,
+      {Map<String, dynamic>? body}) async {
     final accessToken = await getAccessToken();
 
     if (requestType == 'GET') {
@@ -88,16 +85,15 @@ class JwtService {
     }
   }
 
-  Future<http.Response> makeBackendRequest(
-    String requestType,
-    String endpoint,
-    Map<String, dynamic>? body,
-  ) async {
-    var response = await makeBackendRequestAttempt(requestType, endpoint, body);
+  Future<http.Response> makeBackendRequest(String requestType, String endpoint,
+      {Map<String, dynamic>? body}) async {
+    var response =
+        await makeBackendRequestAttempt(requestType, endpoint, body: body);
     if (response.statusCode == 401 &&
         jsonDecode(response.body)['msg'] == 'Token has expired') {
       await refreshAccessToken();
-      response = await makeBackendRequestAttempt(requestType, endpoint, body);
+      response =
+          await makeBackendRequestAttempt(requestType, endpoint, body: body);
     }
     return response;
   }
