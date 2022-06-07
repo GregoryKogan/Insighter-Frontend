@@ -48,10 +48,70 @@ class JwtService {
     return true;
   }
 
+  Future<void> refreshAccessToken() async {
+    final refreshToken = await getRefreshToken();
+
+    final response = await http
+        .post(Uri.parse('${backendUrl}auth/refresh'), headers: <String, String>{
+      'Content-Type': 'application/json; charset=UTF-8',
+      'Authorization': 'Bearer $refreshToken',
+    });
+
+    if (response.statusCode != 200) return;
+    await setAccessToken(jsonDecode(response.body)['access_token']);
+  }
+
+  Future<http.Response> makeBackendRequestAttempt(
+    String requestType,
+    String endpoint,
+    Map<String, dynamic>? body,
+  ) async {
+    final accessToken = await getAccessToken();
+
+    if (requestType == 'GET') {
+      return await http
+          .get(Uri.parse('$backendUrl$endpoint'), headers: <String, String>{
+        'Content-Type': 'application/json; charset=UTF-8',
+        'Authorization': 'Bearer $accessToken',
+      });
+    } else if (requestType == 'POST') {
+      return await http.post(
+        Uri.parse('$backendUrl$endpoint'),
+        headers: <String, String>{
+          'Content-Type': 'application/json; charset=UTF-8',
+          'Authorization': 'Bearer $accessToken',
+        },
+        body: jsonEncode(body),
+      );
+    } else {
+      return http.Response('Method Not Allowed', 405);
+    }
+  }
+
+  Future<http.Response> makeBackendRequest(
+    String requestType,
+    String endpoint,
+    Map<String, dynamic>? body,
+  ) async {
+    var response = await makeBackendRequestAttempt(requestType, endpoint, body);
+    if (response.statusCode == 401 &&
+        jsonDecode(response.body)['msg'] == 'Token has expired') {
+      await refreshAccessToken();
+      response = await makeBackendRequestAttempt(requestType, endpoint, body);
+    }
+    return response;
+  }
+
   Future<String> getAccessToken() async {
     String? accessToken = await storage.read(key: 'access');
     if (accessToken == null) throw Exception('Access token is null');
     return accessToken;
+  }
+
+  Future<String> getRefreshToken() async {
+    String? refreshToken = await storage.read(key: 'refresh');
+    if (refreshToken == null) throw Exception('Refresh token is null');
+    return refreshToken;
   }
 
   Future<void> setAccessToken(String accessToken) async {
