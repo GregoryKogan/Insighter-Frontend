@@ -1,14 +1,21 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:mw_insider/api/geo_objects/geo_sync_service.dart';
 import 'package:mw_insider/api/jwt.dart';
 import 'package:mw_insider/api/ping.dart';
 import 'dart:async';
 import 'package:mw_insider/widgets/loading_widgets/loading_circle.dart';
 
 Future<String> isReadyToUse() async {
-  JwtService jwt = JwtService();
-  PingService pingService = PingService();
+  final JwtService jwt = JwtService();
+  final PingService pingService = PingService();
+  final GeoSyncService geoSyncService = GeoSyncService();
+
   if (!await pingService.ping()) return 'no connection';
+
+  if (await geoSyncService.isSyncNecessary()) {
+    await geoSyncService.syncGeoObjects();
+  }
 
   if (!await jwt.isLoggedIn() || !await jwt.isRefreshable()) {
     await jwt.getNewTokens();

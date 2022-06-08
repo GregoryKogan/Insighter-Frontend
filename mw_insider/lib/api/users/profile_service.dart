@@ -8,7 +8,9 @@ class ProfileService {
   final stateController = Get.put(StateController());
 
   Future<Map<String, dynamic>> getProfile() async {
-    return jsonDecode((await jwt.makeBackendRequest('GET', 'users/me')).body);
+    return jsonDecode(
+        (await jwt.makeBackendRequest('GET', 'users/me', jwtRequired: true))
+            .body);
   }
 
   Future<void> fetchUserProfileData() async {

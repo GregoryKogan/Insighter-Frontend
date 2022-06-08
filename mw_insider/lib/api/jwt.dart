@@ -62,8 +62,11 @@ class JwtService {
 
   Future<http.Response> makeBackendRequestAttempt(
       String requestType, String endpoint,
-      {Map<String, dynamic>? body}) async {
-    final accessToken = await getAccessToken();
+      {Map<String, dynamic>? body, bool? jwtRequired}) async {
+    var accessToken = '';
+    if (jwtRequired != null && jwtRequired) {
+      accessToken = await getAccessToken();
+    }
 
     if (requestType == 'GET') {
       return await http
@@ -86,14 +89,14 @@ class JwtService {
   }
 
   Future<http.Response> makeBackendRequest(String requestType, String endpoint,
-      {Map<String, dynamic>? body}) async {
-    var response =
-        await makeBackendRequestAttempt(requestType, endpoint, body: body);
+      {Map<String, dynamic>? body, bool? jwtRequired}) async {
+    var response = await makeBackendRequestAttempt(requestType, endpoint,
+        body: body, jwtRequired: jwtRequired);
     if (response.statusCode == 401 &&
         jsonDecode(response.body)['msg'] == 'Token has expired') {
       await refreshAccessToken();
-      response =
-          await makeBackendRequestAttempt(requestType, endpoint, body: body);
+      response = await makeBackendRequestAttempt(requestType, endpoint,
+          body: body, jwtRequired: jwtRequired);
     }
     return response;
   }
