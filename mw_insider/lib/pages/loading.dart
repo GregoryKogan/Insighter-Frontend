@@ -3,7 +3,7 @@ import 'package:get/get.dart';
 import 'package:mw_insider/api/jwt.dart';
 import 'package:mw_insider/api/ping.dart';
 import 'dart:async';
-import 'package:mw_insider/widgets/loading_circle.dart';
+import 'package:mw_insider/widgets/loading_widgets/loading_circle.dart';
 
 Future<String> isReadyToUse() async {
   JwtService jwt = JwtService();

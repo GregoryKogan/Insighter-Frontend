@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:mw_insider/widgets/error_message.dart';
-import 'package:mw_insider/widgets/login_button.dart';
-import 'package:mw_insider/widgets/login_input.dart';
-import 'package:mw_insider/widgets/new_user_span.dart';
-import 'package:mw_insider/widgets/password_input.dart';
-import 'package:mw_insider/widgets/scrollable_view.dart';
+import 'package:mw_insider/widgets/auth_page/error_message.dart';
+import 'package:mw_insider/widgets/auth_page/login_input.dart';
+import 'package:mw_insider/widgets/auth_page/login_view/login_button.dart';
+import 'package:mw_insider/widgets/auth_page/login_view/new_user_span.dart';
+import 'package:mw_insider/widgets/auth_page/password_input.dart';
+import 'package:mw_insider/widgets/wrappers/scrollable_view.dart';
 
 class LoginView extends StatelessWidget {
   const LoginView({Key? key}) : super(key: key);

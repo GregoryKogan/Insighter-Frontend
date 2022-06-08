@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:mw_insider/state_controllers/state_controller.dart';
-import 'package:mw_insider/views/about.dart';
-import 'package:mw_insider/views/home.dart';
-import 'package:mw_insider/views/profile.dart';
-import 'package:mw_insider/views/stroll.dart';
-import 'package:mw_insider/widgets/bottom_nav.dart';
+import 'package:mw_insider/views/main_page/about.dart';
+import 'package:mw_insider/views/main_page/home.dart';
+import 'package:mw_insider/views/main_page/profile.dart';
+import 'package:mw_insider/views/main_page/stroll.dart';
+import 'package:mw_insider/widgets/main_page/bottom_nav.dart';
 
 class MainPage extends StatelessWidget {
   MainPage({Key? key}) : super(key: key);

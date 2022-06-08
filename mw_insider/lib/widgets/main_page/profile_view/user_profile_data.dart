@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:mw_insider/api/users/profile_service.dart';
 import 'package:mw_insider/state_controllers/state_controller.dart';
-import 'package:mw_insider/widgets/loading_circle.dart';
+import 'package:mw_insider/widgets/loading_widgets/loading_circle.dart';
 import 'package:intl/intl.dart';
 
 class UserProfileData extends StatefulWidget {

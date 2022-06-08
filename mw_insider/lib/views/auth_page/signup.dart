@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:mw_insider/state_controllers/state_controller.dart';
-import 'package:mw_insider/widgets/error_message.dart';
-import 'package:mw_insider/widgets/log_in_span.dart';
-import 'package:mw_insider/widgets/login_input.dart';
-import 'package:mw_insider/widgets/password_confirmation_input.dart';
-import 'package:mw_insider/widgets/password_input.dart';
-import 'package:mw_insider/widgets/scrollable_view.dart';
-import 'package:mw_insider/widgets/signup_button.dart';
+import 'package:mw_insider/widgets/auth_page/error_message.dart';
+import 'package:mw_insider/widgets/auth_page/login_input.dart';
+import 'package:mw_insider/widgets/auth_page/password_confirmation_input.dart';
+import 'package:mw_insider/widgets/auth_page/password_input.dart';
+import 'package:mw_insider/widgets/auth_page/signup_view/log_in_span.dart';
+import 'package:mw_insider/widgets/wrappers/scrollable_view.dart';
+import 'package:mw_insider/widgets/auth_page/signup_view/signup_button.dart';
 
 class SignUpView extends StatelessWidget {
   SignUpView({Key? key}) : super(key: key);
