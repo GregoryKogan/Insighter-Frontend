@@ -29,11 +29,9 @@ class SignUpView extends StatelessWidget {
         child: SafeArea(
           child: Scaffold(
             body: ScrollableView(
-              minHeight: 450,
-              screenHeightFactor: 1,
               child: Center(
                   child: Column(children: [
-                const Spacer(flex: 6),
+                SizedBox(height: context.height / 10),
                 const Text(
                   'Sign up',
                   style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
@@ -46,11 +44,10 @@ class SignUpView extends StatelessWidget {
                 PasswordConfirmationInput(),
                 const SizedBox(height: 10),
                 LoginSpan(),
-                const Spacer(flex: 1),
+                const SizedBox(height: 10),
                 ErrorMessage(),
-                const Spacer(flex: 1),
+                const SizedBox(height: 10),
                 SignupButton(),
-                const Spacer(flex: 12),
               ])),
             ),
           ),

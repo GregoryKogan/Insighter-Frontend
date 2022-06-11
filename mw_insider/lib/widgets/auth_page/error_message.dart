@@ -23,10 +23,12 @@ class ErrorMessage extends StatelessWidget {
                     .withOpacity(0.1),
                 borderRadius: const BorderRadius.all(Radius.circular(20.0)),
               ),
-              child: Text(
-                stateController.errorString.value,
-                style: TextStyle(
-                  color: context.theme.extension<MyColors>()!.errorColor!,
+              child: Center(
+                child: Text(
+                  stateController.errorString.value,
+                  style: TextStyle(
+                    color: context.theme.extension<MyColors>()!.errorColor!,
+                  ),
                 ),
               ),
             ),

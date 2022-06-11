@@ -11,20 +11,15 @@ class Profile extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       body: ScrollableView(
-        minHeight: 400,
-        screenHeightOffset: -90,
-        // color: Colors.amber,
-        child: Center(
-            child: Column(
+        child: Column(
           children: const [
             SizedBox(height: 20),
             UserProfileData(),
             ThemeSwitch(),
-            Spacer(flex: 1),
             LogoutButton(),
             SizedBox(height: 10),
           ],
-        )),
+        ),
       ),
     );
   }

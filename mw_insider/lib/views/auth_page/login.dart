@@ -17,11 +17,8 @@ class LoginView extends StatelessWidget {
       child: SafeArea(
         child: Scaffold(
           body: ScrollableView(
-            minHeight: 400.0,
-            screenHeightFactor: 1.0,
-            child: Center(
-                child: Column(mainAxisSize: MainAxisSize.min, children: [
-              const Spacer(flex: 6),
+            child: Column(children: [
+              SizedBox(height: context.height / 10),
               const Text(
                 'Login',
                 style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
@@ -32,12 +29,11 @@ class LoginView extends StatelessWidget {
               PasswordInput(),
               const SizedBox(height: 10),
               NewUserSpan(),
-              const Spacer(flex: 1),
+              const SizedBox(height: 10),
               ErrorMessage(),
-              const Spacer(flex: 1),
+              const SizedBox(height: 10),
               LoginButton(),
-              const Spacer(flex: 12),
-            ])),
+            ]),
           ),
         ),
       ),

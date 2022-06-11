@@ -18,7 +18,6 @@ void main() async {
 }
 
 // TODO: Change all shared_preferences to get_storage
-// TODO: Get rid of disgusting splashes in ScrollableView
 // TODO: Add color dicitinary to Theming service
 
 class MyApp extends StatelessWidget {
