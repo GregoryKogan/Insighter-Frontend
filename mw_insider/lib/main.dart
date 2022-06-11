@@ -11,10 +11,15 @@ import 'package:mw_insider/theming/theme_service.dart';
 import 'package:mw_insider/theming/themes.dart';
 
 void main() async {
-  await GetStorage.init();
+  WidgetsFlutterBinding.ensureInitialized();
   await SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
+  await GetStorage.init();
   runApp(const MyApp());
 }
+
+// TODO: Change all shared_preferences to get_storage
+// TODO: Get rid of disgusting splashes in ScrollableView
+// TODO: Add color dicitinary to Theming service
 
 class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);
@@ -31,25 +36,21 @@ class MyApp extends StatelessWidget {
       unknownRoute:
           GetPage(name: '/not_found', page: () => const UnknownRoutePage()),
       getPages: [
-        GetPage(name: '/', page: () => MainPage(), transition: Transition.fade),
+        GetPage(
+            name: '/', page: () => MainPage(), transition: Transition.fadeIn),
         GetPage(
             name: '/loading',
             page: () => const LoadingPage(),
-            transition: Transition.fade),
+            transition: Transition.fadeIn),
         GetPage(
-            name: '/auth', page: () => AuthPage(), transition: Transition.fade),
+            name: '/auth',
+            page: () => AuthPage(),
+            transition: Transition.fadeIn),
         GetPage(
             name: '/no_connection',
             page: () => const NoConnectionPage(),
-            transition: Transition.fade),
+            transition: Transition.fadeIn),
       ],
     );
   }
 }
-
-
-// TODO: Loading page checks if refresh token is still ~fresh~
-// TODO: If not, it opens login/sign up page
-// TODO: JWT tokens should be stored in secure_storage
-// TODO: JWT tokens should be appended to every request
-// TODO: Access token should be automatically updated 

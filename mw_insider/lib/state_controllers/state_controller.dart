@@ -1,7 +1,7 @@
 import 'package:get/get.dart';
 
 class StateController extends GetxController {
-  final selectedViewIndex = 0.obs;
+  final selectedViewIndex = 1.obs;
 
   final authView = 'log_in'.obs;
 

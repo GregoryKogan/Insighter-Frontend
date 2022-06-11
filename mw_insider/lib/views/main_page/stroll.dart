@@ -1,15 +1,33 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:mw_insider/geolocation/geofencing.dart';
+import 'package:mw_insider/state_controllers/location_controller.dart';
 
 class Stroll extends StatelessWidget {
-  const Stroll({Key? key}) : super(key: key);
+  Stroll({Key? key}) : super(key: key);
+
+  final locationController = Get.put(LocationController());
+  final geofencingService = GeofencingService();
+
+  void _onPressed() {
+    if (locationController.isTracking.value) {
+      geofencingService.stopTracking();
+    } else {
+      geofencingService.startTracking();
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text('Stroll page'),
+    return Obx(
+      () => Scaffold(
+        body: Center(
+            child: TextButton(
+                onPressed: _onPressed,
+                child: Text(locationController.isTracking.value
+                    ? 'Turn OFF tracking'
+                    : 'Turn ON tracking'))),
       ),
-      body: const Center(child: Text('Stroll page')),
     );
   }
 }

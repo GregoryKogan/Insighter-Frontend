@@ -25,6 +25,7 @@ class GeoSyncService {
     String geoObjectsData = jsonEncode(data['GeoObjects']);
     final prefs = await SharedPreferences.getInstance();
     await prefs.setString('GeoObjects', geoObjectsData);
+    await prefs.setString('lastSync', DateTime.now().toIso8601String());
     return;
   }
 }

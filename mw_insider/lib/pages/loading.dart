@@ -6,23 +6,18 @@ import 'package:mw_insider/api/ping.dart';
 import 'dart:async';
 import 'package:mw_insider/widgets/loading_widgets/loading_circle.dart';
 
-Future<String> isReadyToUse() async {
-  final JwtService jwt = JwtService();
-  final PingService pingService = PingService();
+Future<void> initApp() async {
   final GeoSyncService geoSyncService = GeoSyncService();
-
-  if (!await pingService.ping()) return 'no connection';
-
   if (await geoSyncService.isSyncNecessary()) {
     await geoSyncService.syncGeoObjects();
   }
 
+  final JwtService jwt = JwtService();
   if (!await jwt.isLoggedIn() || !await jwt.isRefreshable()) {
     await jwt.getNewTokens();
   }
 
-  if (await jwt.isLoggedIn() && await jwt.isRefreshable()) return 'ok';
-  return 'not logged in';
+  return;
 }
 
 void validateResponse(String readyToUse) {
@@ -44,29 +39,40 @@ class LoadingPage extends StatefulWidget {
   State<LoadingPage> createState() => _LoadingPageState();
 }
 
-class _LoadingPageState extends State<LoadingPage> {
-  late Future<String> readyToUse;
+void isReadyToUse() async {
+  await initApp();
 
+  final PingService pingService = PingService();
+  if (!await pingService.ping()) {
+    validateResponse('no connection');
+    return;
+  }
+
+  final JwtService jwt = JwtService();
+  if (await jwt.isLoggedIn() && await jwt.isRefreshable()) {
+    validateResponse('ok');
+    return;
+  }
+
+  validateResponse('not logged in');
+}
+
+class _LoadingPageState extends State<LoadingPage> {
   @override
   void initState() {
     super.initState();
-    readyToUse = isReadyToUse();
+    isReadyToUse();
   }
 
   @override
   Widget build(BuildContext context) {
     return Container(
       color: context.theme.scaffoldBackgroundColor,
-      child: SafeArea(
+      child: const SafeArea(
         child: Scaffold(
           body: Center(
-              child: FutureBuilder<String>(
-            future: readyToUse,
-            builder: (context, snapshot) {
-              if (snapshot.hasData) validateResponse(snapshot.data!);
-              return const LoadingCircle();
-            },
-          )),
+            child: LoadingCircle(),
+          ),
         ),
       ),
     );

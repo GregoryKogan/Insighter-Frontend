@@ -14,6 +14,12 @@ class _BottomNavState extends State<BottomNav> {
 
   int _selectedIndex = 0;
 
+  @override
+  void initState() {
+    _selectedIndex = stateController.selectedViewIndex.value;
+    super.initState();
+  }
+
   void _onItemTapped(int index) {
     setState(() {
       _selectedIndex = index;
@@ -27,7 +33,7 @@ class _BottomNavState extends State<BottomNav> {
       items: const [
         BottomNavigationBarItem(
             icon: Icon(Icons.directions_run_rounded), label: 'Stroll'),
-        BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Home'),
+        BottomNavigationBarItem(icon: Icon(Icons.gps_fixed), label: 'Nearby'),
         BottomNavigationBarItem(icon: Icon(Icons.person), label: 'Profile'),
         BottomNavigationBarItem(
             icon: Icon(Icons.question_answer), label: 'About'),
