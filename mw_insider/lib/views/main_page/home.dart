@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:mw_insider/state_controllers/location_controller.dart';
-import 'package:mw_insider/theming/themes.dart';
 import 'package:mw_insider/widgets/loading_widgets/loading_bar.dart';
 import 'package:mw_insider/widgets/main_page/home_view/address_span.dart';
 import 'package:mw_insider/widgets/main_page/home_view/nearby_object.dart';

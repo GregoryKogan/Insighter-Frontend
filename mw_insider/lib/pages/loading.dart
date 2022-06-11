@@ -8,7 +8,7 @@ import 'package:mw_insider/widgets/loading_widgets/loading_circle.dart';
 
 Future<void> initApp() async {
   final GeoSyncService geoSyncService = GeoSyncService();
-  if (await geoSyncService.isSyncNecessary()) {
+  if (geoSyncService.isSyncNecessary()) {
     await geoSyncService.syncGeoObjects();
   }
 

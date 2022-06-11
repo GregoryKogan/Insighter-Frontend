@@ -1,10 +1,11 @@
 import 'dart:convert';
+import 'package:get_storage/get_storage.dart';
 import 'package:mw_insider/api/jwt.dart';
 import 'package:mw_insider/configuration/config.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 class GeoSyncService {
   final JwtService jwt = JwtService();
+  final box = GetStorage();
 
   Duration timeSince(String timestamp) {
     final DateTime moment = DateTime.parse(timestamp);
@@ -12,10 +13,9 @@ class GeoSyncService {
     return now.difference(moment);
   }
 
-  Future<bool> isSyncNecessary() async {
-    final prefs = await SharedPreferences.getInstance();
-    if (!prefs.containsKey('lastSync')) return true;
-    final String lastSync = prefs.getString('lastSync')!;
+  bool isSyncNecessary() {
+    if (!box.hasData('lastSync')) return true;
+    final String lastSync = box.read('lastSync')!;
     return timeSince(lastSync).compareTo(geoSyncFrequency) > 0;
   }
 
@@ -23,9 +23,8 @@ class GeoSyncService {
     final response = await jwt.makeBackendRequest('GET', 'geoObjects/syncUser');
     final data = jsonDecode(response.body);
     String geoObjectsData = jsonEncode(data['GeoObjects']);
-    final prefs = await SharedPreferences.getInstance();
-    await prefs.setString('GeoObjects', geoObjectsData);
-    await prefs.setString('lastSync', DateTime.now().toIso8601String());
+    await box.write('GeoObjects', geoObjectsData);
+    await box.write('lastSync', DateTime.now().toIso8601String());
     return;
   }
 }

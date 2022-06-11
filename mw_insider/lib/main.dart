@@ -17,8 +17,7 @@ void main() async {
   runApp(const MyApp());
 }
 
-// TODO: Change all shared_preferences to get_storage
-// TODO: Add color dicitinary to Theming service
+// TODO: Add color dictionary to Theming service
 
 class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);
@@ -36,7 +35,9 @@ class MyApp extends StatelessWidget {
           GetPage(name: '/not_found', page: () => const UnknownRoutePage()),
       getPages: [
         GetPage(
-            name: '/', page: () => MainPage(), transition: Transition.fadeIn),
+            name: '/',
+            page: () => const MainPage(),
+            transition: Transition.fadeIn),
         GetPage(
             name: '/loading',
             page: () => const LoadingPage(),
