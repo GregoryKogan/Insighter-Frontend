@@ -33,24 +33,21 @@ class _NearbyObjectState extends State<NearbyObject> {
         if (!snapshot.hasData) return const LoadingCircle();
         return SizedBox(
           height: 300,
-          child: FractionallySizedBox(
-            widthFactor: 0.9,
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Expanded(
-                  flex: 2,
-                  child: snapshot.data!['image'] != null
-                      ? Image.network(snapshot.data!['image'])
-                      : const Icon(Icons.image),
-                ),
-                Text(snapshot.data!['category']),
-                Text(snapshot.data!['name_ru']),
-                Text(snapshot.data!['meta']['wiki']['wikipedia']),
-                Text(
-                    'Distance: ${Geolocator.distanceBetween(locationController.latitude.value, locationController.longitude.value, snapshot.data!['latitude'], snapshot.data!['longitude']).round()}m'),
-              ],
-            ),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Expanded(
+                flex: 2,
+                child: snapshot.data!['image'] != null
+                    ? Image.network(snapshot.data!['image'])
+                    : const Icon(Icons.image),
+              ),
+              Text(snapshot.data!['category']),
+              Text(snapshot.data!['name_ru']),
+              Text(snapshot.data!['meta']['wiki']['wikipedia']),
+              Text(
+                  'Distance: ${Geolocator.distanceBetween(locationController.latitude.value, locationController.longitude.value, snapshot.data!['latitude'], snapshot.data!['longitude']).round()}m'),
+            ],
           ),
         );
       },

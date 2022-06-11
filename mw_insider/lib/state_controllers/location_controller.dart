@@ -1,5 +1,4 @@
 import 'dart:async';
-
 import 'package:geolocator/geolocator.dart';
 import 'package:get/get.dart';
 
@@ -9,6 +8,7 @@ class LocationController extends GetxController {
   final nearbyObjects = <int>[].obs;
   final isTracking = false.obs;
   final locationStreamSubscription = Rx<StreamSubscription<Position>?>(null);
+  final address = ''.obs;
 
   updateLocation(double lat, double lon) {
     latitude(lat);
@@ -25,5 +25,9 @@ class LocationController extends GetxController {
 
   setLocationStreamSubscription(StreamSubscription<Position>? sub) {
     locationStreamSubscription(sub);
+  }
+
+  setAddress(String addr) {
+    address(addr);
   }
 }

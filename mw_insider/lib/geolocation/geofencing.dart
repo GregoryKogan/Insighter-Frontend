@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'package:flutter/foundation.dart';
+import 'package:geocoding/geocoding.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:get/get.dart';
 import 'package:mw_insider/api/geo_objects/exploring_service.dart';
@@ -15,6 +16,7 @@ class GeofencingService {
         .listen((Position position) {
       locationController.updateLocation(position.latitude, position.longitude);
       exploringService.getNearbyObjects();
+      updateAddress();
     });
     locationController.setIsTracking(true);
     locationController.setLocationStreamSubscription(sub);
@@ -69,7 +71,35 @@ class GeofencingService {
 
     locationController.updateLocation(position.latitude, position.longitude);
     await exploringService.getNearbyObjects();
+    await updateAddress();
 
     return position;
+  }
+
+  Future<String> updateAddress() async {
+    final addresses = await placemarkFromCoordinates(
+        locationController.latitude.value, locationController.longitude.value);
+    final first = addresses.first;
+    String address = '';
+    if (first.locality != '') address += '${first.locality}';
+    if (first.thoroughfare != '' && address != '') {
+      address += ', ${first.thoroughfare}';
+    } else if (first.thoroughfare != '') {
+      address += '${first.thoroughfare}';
+    }
+    if (first.subThoroughfare != '' && address != '') {
+      address += ' ${first.subThoroughfare}';
+    } else if (first.subThoroughfare != '') {
+      address += '${first.administrativeArea} ${first.subThoroughfare}';
+    }
+    if (first.thoroughfare == '' && first.subThoroughfare == '') {
+      if (first.street != '') {
+        address = first.street!;
+      } else {
+        address = first.administrativeArea!;
+      }
+    }
+    locationController.setAddress(address);
+    return address;
   }
 }
