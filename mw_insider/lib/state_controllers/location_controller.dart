@@ -9,6 +9,7 @@ class LocationController extends GetxController {
   final isTracking = false.obs;
   final locationStreamSubscription = Rx<StreamSubscription<Position>?>(null);
   final address = ''.obs;
+  final locationPermission = Rx<LocationPermission?>(null);
 
   updateLocation(double lat, double lon) {
     latitude(lat);
@@ -29,5 +30,9 @@ class LocationController extends GetxController {
 
   setAddress(String addr) {
     address(addr);
+  }
+
+  setLocationPermission(LocationPermission permission) {
+    locationPermission(permission);
   }
 }

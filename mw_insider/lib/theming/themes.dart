@@ -4,20 +4,26 @@ class MyColors extends ThemeExtension<MyColors> {
   const MyColors({
     required this.textColor,
     required this.errorColor,
-    required this.overScrollColor,
+    required this.successColor,
+    required this.secondaryColor,
   });
 
   final Color? textColor;
   final Color? errorColor;
-  final Color? overScrollColor;
+  final Color? successColor;
+  final Color? secondaryColor;
 
   @override
   ThemeExtension<MyColors> copyWith(
-      {Color? textColor, Color? errorColor, Color? overScrollColor}) {
+      {Color? textColor,
+      Color? errorColor,
+      Color? successColor,
+      Color? secondaryColor}) {
     return MyColors(
       textColor: textColor ?? this.textColor,
       errorColor: errorColor ?? this.errorColor,
-      overScrollColor: overScrollColor ?? this.overScrollColor,
+      successColor: successColor ?? this.successColor,
+      secondaryColor: secondaryColor ?? this.secondaryColor,
     );
   }
 
@@ -29,7 +35,8 @@ class MyColors extends ThemeExtension<MyColors> {
     return MyColors(
       textColor: Color.lerp(textColor, other.textColor, t),
       errorColor: Color.lerp(errorColor, other.errorColor, t),
-      overScrollColor: Color.lerp(overScrollColor, other.overScrollColor, t),
+      successColor: Color.lerp(successColor, other.successColor, t),
+      secondaryColor: Color.lerp(secondaryColor, other.secondaryColor, t),
     );
   }
 }
@@ -40,7 +47,8 @@ class Themes {
       const MyColors(
         textColor: Color(0xff343b58),
         errorColor: Color(0xff8c4351),
-        overScrollColor: Color(0xff5a4a78),
+        successColor: Color(0xff33635c),
+        secondaryColor: Color(0xff34548a),
       ),
     ],
     scaffoldBackgroundColor: const Color(0xffd5d6db),
@@ -68,7 +76,8 @@ class Themes {
       const MyColors(
         textColor: Color(0xffc0caf5),
         errorColor: Color(0xfff7768e),
-        overScrollColor: Color(0xffbb9af7),
+        successColor: Color(0xff73daca),
+        secondaryColor: Color(0xff7aa2f7),
       ),
     ],
     scaffoldBackgroundColor: const Color(0xff1a1b26),

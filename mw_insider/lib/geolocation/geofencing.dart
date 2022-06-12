@@ -14,6 +14,7 @@ class GeofencingService {
     LocationSettings locationSettings = getSettings();
     final sub = Geolocator.getPositionStream(locationSettings: locationSettings)
         .listen((Position position) {
+      print(position);
       locationController.updateLocation(position.latitude, position.longitude);
       exploringService.getNearbyObjects();
       updateAddress();
@@ -60,12 +61,14 @@ class GeofencingService {
       );
     }
 
-    Geolocator.requestPermission();
-
     return locationSettings;
   }
 
-  Future<Position> fetchLocation() async {
+  Future<Position?> fetchLocation() async {
+    final permission = await askForPermission();
+    if (permission != LocationPermission.whileInUse &&
+        permission != LocationPermission.always) return null;
+
     Position position = await Geolocator.getCurrentPosition(
         desiredAccuracy: LocationAccuracy.best);
 
@@ -101,5 +104,15 @@ class GeofencingService {
     }
     locationController.setAddress(address);
     return address;
+  }
+
+  Future<LocationPermission> askForPermission() async {
+    var permission = await Geolocator.checkPermission();
+    if (permission != LocationPermission.always &&
+        permission != LocationPermission.whileInUse) {
+      permission = await Geolocator.requestPermission();
+    }
+    locationController.setLocationPermission(permission);
+    return permission;
   }
 }
