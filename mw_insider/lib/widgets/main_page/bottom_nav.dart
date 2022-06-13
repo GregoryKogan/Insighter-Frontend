@@ -33,9 +33,9 @@ class _BottomNavState extends State<BottomNav> {
   Widget build(BuildContext context) {
     return Theme(
       data: Theme.of(context).copyWith(
-          canvasColor: ColorService.darken(
-              context.theme.extension<Palette>()!.background!,
-              amount: 0.04)),
+          canvasColor: ColorService.intensify(
+              context.theme.extension<Palette>()!.background!, context.theme,
+              amount: 0.03)),
       child: BottomNavigationBarTheme(
         data: BottomNavigationBarThemeData(
           selectedItemColor: context.theme.extension<Palette>()!.cyan,
