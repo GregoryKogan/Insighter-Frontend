@@ -20,8 +20,6 @@ void main() async {
   runApp(const MyApp());
 }
 
-// TODO: Add color dictionary to Theming service
-
 class MyApp extends StatefulWidget {
   const MyApp({Key? key}) : super(key: key);
 

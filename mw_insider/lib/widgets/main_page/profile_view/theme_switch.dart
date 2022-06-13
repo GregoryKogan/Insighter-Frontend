@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:mw_insider/theming/theme_service.dart';
+import 'package:mw_insider/theming/themes.dart';
 
 class ThemeSwitch extends StatefulWidget {
   const ThemeSwitch({Key? key}) : super(key: key);
@@ -24,6 +25,7 @@ class _ThemeSwitchState extends State<ThemeSwitch> {
     return Row(
       children: [
         Switch(
+          activeColor: context.theme.extension<Palette>()!.blue,
           value: _isDarkMode,
           onChanged: _changeTheme,
         ),

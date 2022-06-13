@@ -27,7 +27,7 @@ class GivePermissionButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return TextButton(
         style: TextButton.styleFrom(
-          primary: context.theme.extension<MyColors>()!.secondaryColor,
+          primary: context.theme.extension<Palette>()!.magenta,
           padding: const EdgeInsets.all(0),
           textStyle: const TextStyle(fontSize: 15),
         ),

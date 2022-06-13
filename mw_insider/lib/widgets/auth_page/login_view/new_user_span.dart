@@ -20,11 +20,11 @@ class NewUserSpan extends StatelessWidget {
       TextSpan(
           text: 'New user? ',
           style:
-              TextStyle(color: context.theme.extension<MyColors>()!.textColor)),
+              TextStyle(color: context.theme.extension<Palette>()!.foreground)),
       TextSpan(
           text: 'SIGN UP',
           style: TextStyle(
-            color: context.theme.primaryColor,
+            color: context.theme.extension<Palette>()!.orange,
             fontWeight: FontWeight.bold,
           ),
           recognizer: TapGestureRecognizer()..onTap = goRegister)

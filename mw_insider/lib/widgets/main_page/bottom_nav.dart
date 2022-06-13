@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:mw_insider/state_controllers/state_controller.dart';
+import 'package:mw_insider/theming/color_service.dart';
+import 'package:mw_insider/theming/themes.dart';
 
 class BottomNav extends StatefulWidget {
   const BottomNav({Key? key}) : super(key: key);
@@ -29,19 +31,32 @@ class _BottomNavState extends State<BottomNav> {
 
   @override
   Widget build(BuildContext context) {
-    return BottomNavigationBar(
-      items: const [
-        BottomNavigationBarItem(
-            icon: Icon(Icons.directions_run_rounded), label: 'Stroll'),
-        BottomNavigationBarItem(icon: Icon(Icons.gps_fixed), label: 'Nearby'),
-        BottomNavigationBarItem(icon: Icon(Icons.person), label: 'Profile'),
-        BottomNavigationBarItem(
-            icon: Icon(Icons.question_answer), label: 'About'),
-      ],
-      currentIndex: _selectedIndex,
-      selectedItemColor: context.theme.primaryColor,
-      onTap: _onItemTapped,
-      unselectedItemColor: context.theme.disabledColor,
+    return Theme(
+      data: Theme.of(context).copyWith(
+          canvasColor: ColorService.darken(
+              context.theme.extension<Palette>()!.background!,
+              amount: 0.04)),
+      child: BottomNavigationBarTheme(
+        data: BottomNavigationBarThemeData(
+          selectedItemColor: context.theme.extension<Palette>()!.cyan,
+          unselectedItemColor: context.theme.extension<Palette>()!.comment,
+          type: BottomNavigationBarType.fixed,
+          elevation: 5,
+        ),
+        child: BottomNavigationBar(
+          items: const [
+            BottomNavigationBarItem(
+                icon: Icon(Icons.directions_run_rounded), label: 'Stroll'),
+            BottomNavigationBarItem(
+                icon: Icon(Icons.gps_fixed), label: 'Nearby'),
+            BottomNavigationBarItem(icon: Icon(Icons.person), label: 'Profile'),
+            BottomNavigationBarItem(
+                icon: Icon(Icons.question_answer), label: 'About'),
+          ],
+          currentIndex: _selectedIndex,
+          onTap: _onItemTapped,
+        ),
+      ),
     );
   }
 }

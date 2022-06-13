@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:mw_insider/theming/themes.dart';
 
 class UnknownRoutePage extends StatelessWidget {
   const UnknownRoutePage({Key? key}) : super(key: key);
@@ -7,7 +8,7 @@ class UnknownRoutePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      color: context.theme.scaffoldBackgroundColor,
+      color: context.theme.extension<Palette>()!.background,
       child: SafeArea(
         child: Scaffold(
           body: Center(

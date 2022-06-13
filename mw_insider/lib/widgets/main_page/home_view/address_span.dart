@@ -20,7 +20,7 @@ class AddressSpan extends StatelessWidget {
             style: TextStyle(
                 fontSize: 18,
                 fontWeight: FontWeight.bold,
-                color: context.theme.extension<MyColors>()!.textColor),
+                color: context.theme.extension<Palette>()!.foreground),
           ),
         ],
       )),

@@ -69,14 +69,11 @@ class _PermissionsWidgetState extends State<PermissionsWidget> {
                     child: permissionStatus()["foreground"]!
                         ? Icon(
                             Icons.check_circle_outline,
-                            color: context.theme
-                                .extension<MyColors>()!
-                                .successColor,
+                            color: context.theme.extension<Palette>()!.green,
                           )
                         : Icon(
                             Icons.cancel_outlined,
-                            color:
-                                context.theme.extension<MyColors>()!.errorColor,
+                            color: context.theme.extension<Palette>()!.red,
                           ),
                   ))
             ],

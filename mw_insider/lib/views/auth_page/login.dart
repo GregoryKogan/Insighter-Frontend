@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:mw_insider/theming/themes.dart';
 import 'package:mw_insider/widgets/auth_page/error_message.dart';
 import 'package:mw_insider/widgets/auth_page/login_input.dart';
 import 'package:mw_insider/widgets/auth_page/login_view/login_button.dart';
@@ -13,7 +14,7 @@ class LoginView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      color: context.theme.scaffoldBackgroundColor,
+      color: context.theme.extension<Palette>()!.background,
       child: SafeArea(
         child: Scaffold(
           body: ScrollableView(

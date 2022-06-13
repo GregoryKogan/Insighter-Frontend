@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:mw_insider/theming/themes.dart';
 import 'package:mw_insider/widgets/main_page/profile_view/logout_button.dart';
 import 'package:mw_insider/widgets/main_page/profile_view/permissions_widget.dart';
 import 'package:mw_insider/widgets/main_page/profile_view/theme_switch.dart';
@@ -22,7 +23,7 @@ class Profile extends StatelessWidget {
               Divider(
                 thickness: 1,
                 height: 20,
-                color: context.theme.canvasColor,
+                color: context.theme.extension<Palette>()!.comment,
               ),
               const PermissionsWidget(),
               const ThemeSwitch(),

@@ -17,17 +17,15 @@ class ErrorMessage extends StatelessWidget {
               padding:
                   const EdgeInsets.symmetric(vertical: 5.0, horizontal: 10.0),
               decoration: BoxDecoration(
-                color: context.theme
-                    .extension<MyColors>()!
-                    .errorColor!
-                    .withOpacity(0.1),
+                color:
+                    context.theme.extension<Palette>()!.red!.withOpacity(0.1),
                 borderRadius: const BorderRadius.all(Radius.circular(20.0)),
               ),
               child: Center(
                 child: Text(
                   stateController.errorString.value,
                   style: TextStyle(
-                    color: context.theme.extension<MyColors>()!.errorColor!,
+                    color: context.theme.extension<Palette>()!.red!,
                   ),
                 ),
               ),

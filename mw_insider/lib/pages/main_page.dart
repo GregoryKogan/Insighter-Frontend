@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:mw_insider/geolocation/geofencing.dart';
 import 'package:mw_insider/state_controllers/state_controller.dart';
+import 'package:mw_insider/theming/themes.dart';
 import 'package:mw_insider/views/main_page/about.dart';
 import 'package:mw_insider/views/main_page/home.dart';
 import 'package:mw_insider/views/main_page/profile.dart';
@@ -35,7 +36,7 @@ class _MainPageState extends State<MainPage> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      color: context.theme.scaffoldBackgroundColor,
+      color: context.theme.extension<Palette>()!.background,
       child: SafeArea(
         child: Scaffold(
           body: Obx(

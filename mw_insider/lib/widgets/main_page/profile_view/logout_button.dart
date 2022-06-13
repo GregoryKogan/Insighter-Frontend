@@ -18,10 +18,10 @@ class LogoutButton extends StatelessWidget {
       style: OutlinedButton.styleFrom(
         minimumSize: const Size(130, 40),
         backgroundColor:
-            context.theme.extension<MyColors>()!.errorColor!.withOpacity(0.1),
-        primary: context.theme.extension<MyColors>()!.errorColor!,
+            context.theme.extension<Palette>()!.red!.withOpacity(0.1),
+        primary: context.theme.extension<Palette>()!.red!,
         side: BorderSide(
-          color: context.theme.extension<MyColors>()!.errorColor!,
+          color: context.theme.extension<Palette>()!.red!,
           width: 1,
         ),
         shape: const StadiumBorder(),

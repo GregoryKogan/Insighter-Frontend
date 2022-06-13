@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:mw_insider/api/geo_objects/geo_sync_service.dart';
 import 'package:mw_insider/api/jwt.dart';
 import 'package:mw_insider/api/ping.dart';
+import 'package:mw_insider/theming/themes.dart';
 import 'dart:async';
 import 'package:mw_insider/widgets/loading_widgets/loading_circle.dart';
 
@@ -67,7 +68,7 @@ class _LoadingPageState extends State<LoadingPage> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      color: context.theme.scaffoldBackgroundColor,
+      color: context.theme.extension<Palette>()!.background,
       child: const SafeArea(
         child: Scaffold(
           body: Center(
