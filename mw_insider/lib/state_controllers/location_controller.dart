@@ -5,7 +5,7 @@ import 'package:get/get.dart';
 class LocationController extends GetxController {
   final latitude = 0.0.obs;
   final longitude = 0.0.obs;
-  final nearbyObjects = <int>[].obs;
+  final nearbyObjects = <Map<String, dynamic>>[].obs;
   final isTracking = false.obs;
   final locationStreamSubscription = Rx<StreamSubscription<Position>?>(null);
   final address = ''.obs;
@@ -16,7 +16,7 @@ class LocationController extends GetxController {
     longitude(lon);
   }
 
-  updateNearbyObjects(List<int> geoObjects) {
+  updateNearbyObjects(List<Map<String, dynamic>> geoObjects) {
     nearbyObjects(geoObjects);
   }
 

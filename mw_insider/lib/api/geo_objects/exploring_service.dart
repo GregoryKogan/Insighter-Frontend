@@ -19,14 +19,18 @@ class ExploringService {
     double myLat = locationController.latitude.value;
     double myLon = locationController.longitude.value;
     final geoObjects = getAllGeoObjects();
-    List<int> nearbyObjects = [];
+    List<Map<String, dynamic>> nearbyObjects = [];
     for (final geoObject in geoObjects) {
       final double distance = Geolocator.distanceBetween(
           geoObject['lat'], geoObject['lon'], myLat, myLon);
       if (distance < nearbyObjectsRadius) {
-        nearbyObjects.add(geoObject['id']);
+        nearbyObjects.add({
+          'id': geoObject['id'],
+          'dist': distance,
+        });
       }
     }
+    nearbyObjects.sort((a, b) => a['dist'].compareTo(b['dist']));
     locationController.updateNearbyObjects(nearbyObjects);
     return;
   }

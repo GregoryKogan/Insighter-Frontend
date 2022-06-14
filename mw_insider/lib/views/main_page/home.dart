@@ -46,7 +46,7 @@ class Home extends StatelessWidget {
                                   itemBuilder: ((context, index) =>
                                       NearbyObject(
                                           id: locationController
-                                              .nearbyObjects[index])),
+                                              .nearbyObjects[index]['id'])),
                                   itemCount:
                                       locationController.nearbyObjects.length,
                                 )
