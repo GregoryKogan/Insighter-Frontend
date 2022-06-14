@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:get/get.dart';
+import 'package:mw_insider/configuration/config.dart';
 import 'package:mw_insider/state_controllers/location_controller.dart';
 import 'package:mw_insider/widgets/loading_widgets/loading_bar.dart';
 import 'package:mw_insider/widgets/main_page/give_permission_button.dart';
@@ -35,9 +36,15 @@ class Home extends StatelessWidget {
                     child: FractionallySizedBox(
                       widthFactor: 0.9,
                       child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           const SizedBox(height: 20),
                           AddressSpan(),
+                          const SizedBox(height: 10),
+                          Text(
+                            '${locationController.nearbyObjects.length} objects in ${nearbyObjectsRadius.toInt()}m radius',
+                            style: const TextStyle(fontSize: 16),
+                          ),
                           const SizedBox(height: 20),
                           locationController.nearbyObjects.isNotEmpty
                               ? ListView.builder(
