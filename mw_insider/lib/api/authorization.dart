@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
+import 'package:mw_insider/api/api_cache_service.dart';
 import 'package:mw_insider/api/jwt.dart';
 import 'package:mw_insider/configuration/config.dart';
 import 'package:mw_insider/state_controllers/state_controller.dart';
@@ -10,6 +11,7 @@ class AuthorizationService {
   final stateController = Get.put(StateController());
   JwtService jwt = JwtService();
   final storage = const FlutterSecureStorage();
+  final apiCacheService = ApiCacheService();
 
   Future<void> login(String username, String password) async {
     final response = await http.post(
@@ -39,6 +41,7 @@ class AuthorizationService {
     await jwt.deleteAllTokens();
     await storage.delete(key: 'username');
     await storage.delete(key: 'password');
+    apiCacheService.removeCached('users/me');
     Get.offNamed('/loading');
   }
 

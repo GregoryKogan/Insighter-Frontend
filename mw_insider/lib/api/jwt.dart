@@ -2,10 +2,12 @@ import 'dart:convert';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:jwt_decode/jwt_decode.dart';
 import 'package:http/http.dart' as http;
+import 'package:mw_insider/api/api_cache_service.dart';
 import 'package:mw_insider/configuration/config.dart';
 
 class JwtService {
   final storage = const FlutterSecureStorage();
+  final apiCacheService = ApiCacheService();
 
   Future<bool> isLoggedIn() async {
     String? accessToken = await storage.read(key: 'access');
@@ -89,15 +91,27 @@ class JwtService {
   }
 
   Future<http.Response> makeBackendRequest(String requestType, String endpoint,
-      {Map<String, dynamic>? body, bool? jwtRequired}) async {
-    var response = await makeBackendRequestAttempt(requestType, endpoint,
+      {Map<String, dynamic>? body,
+      bool? jwtRequired,
+      bool cache = false}) async {
+    if (cache) {
+      http.Response? cached = apiCacheService.getCached(endpoint);
+      if (cached != null) return cached;
+    }
+
+    http.Response response = await makeBackendRequestAttempt(
+        requestType, endpoint,
         body: body, jwtRequired: jwtRequired);
+
     if (response.statusCode == 401 &&
         jsonDecode(response.body)['msg'] == 'Token has expired') {
       await refreshAccessToken();
       response = await makeBackendRequestAttempt(requestType, endpoint,
           body: body, jwtRequired: jwtRequired);
     }
+
+    if (cache) apiCacheService.cacheResponse(endpoint, response);
+
     return response;
   }
 

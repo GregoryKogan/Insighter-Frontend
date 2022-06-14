@@ -6,7 +6,7 @@ class ObjectDataService {
 
   Future<Map<String, dynamic>> getObjectData(int id) async {
     return jsonDecode((await jwt.makeBackendRequest('GET', 'geoObjects/$id',
-            jwtRequired: false))
+            jwtRequired: false, cache: true))
         .body);
   }
 }

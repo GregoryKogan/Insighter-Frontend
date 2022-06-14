@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 import 'package:mw_insider/api/users/profile_service.dart';
-import 'package:mw_insider/state_controllers/state_controller.dart';
 import 'package:mw_insider/widgets/loading_widgets/loading_circle.dart';
 import 'package:intl/intl.dart';
 
@@ -13,13 +11,20 @@ class UserProfileData extends StatefulWidget {
 }
 
 class _UserProfileDataState extends State<UserProfileData> {
-  final stateController = Get.put(StateController());
-  final ps = ProfileService();
+  final profileService = ProfileService();
+  Map<String, dynamic>? userProfileData;
+
+  void loadData() async {
+    final data = await profileService.getProfile();
+    setState(() {
+      userProfileData = data;
+    });
+  }
 
   @override
   void initState() {
     super.initState();
-    if (stateController.userProfileData.isEmpty) ps.fetchUserProfileData();
+    loadData();
   }
 
   String parseDateTime(String timestamp) {
@@ -30,7 +35,7 @@ class _UserProfileDataState extends State<UserProfileData> {
 
   @override
   Widget build(BuildContext context) {
-    return Obx(() => stateController.userProfileData.isEmpty
+    return userProfileData == null
         ? const LoadingCircle()
         : Column(
             children: [
@@ -49,18 +54,18 @@ class _UserProfileDataState extends State<UserProfileData> {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(
-                            stateController.userProfileData['name'],
+                            userProfileData!['name'],
                             style: const TextStyle(
                                 fontSize: 30, fontWeight: FontWeight.bold),
                           ),
-                          Text(stateController.userProfileData['rank']),
+                          Text(userProfileData!['rank']),
                         ]),
                   ),
                 ],
               ),
               Text(
-                  'Joined on ${parseDateTime(stateController.userProfileData["created_at"])}'),
+                  'Joined on ${parseDateTime(userProfileData!["created_at"])}'),
             ],
-          ));
+          );
   }
 }
