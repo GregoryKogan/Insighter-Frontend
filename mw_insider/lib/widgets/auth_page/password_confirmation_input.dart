@@ -4,9 +4,18 @@ import 'package:mw_insider/state_controllers/state_controller.dart';
 import 'package:mw_insider/theming/color_service.dart';
 import 'package:mw_insider/theming/themes.dart';
 
-class PasswordConfirmationInput extends StatelessWidget {
-  PasswordConfirmationInput({Key? key}) : super(key: key);
+class PasswordConfirmationInput extends StatefulWidget {
+  const PasswordConfirmationInput({Key? key}) : super(key: key);
+
+  @override
+  State<PasswordConfirmationInput> createState() =>
+      _PasswordConfirmationInputState();
+}
+
+class _PasswordConfirmationInputState extends State<PasswordConfirmationInput> {
   final stateController = Get.put(StateController());
+
+  bool _passwordVisible = false;
 
   _onChanged(String val) {
     stateController.updateUserPasswordConfirmation(val);
@@ -21,11 +30,12 @@ class PasswordConfirmationInput extends StatelessWidget {
         child: TextField(
           onChanged: _onChanged,
           cursorColor: context.theme.extension<Palette>()!.green,
-          obscureText: true,
+          obscureText: !_passwordVisible,
           enableSuggestions: false,
           autocorrect: false,
           decoration: InputDecoration(
             filled: true,
+            contentPadding: const EdgeInsets.all(10.0),
             fillColor: ColorService.soften(
                 context.theme.extension<Palette>()!.background!, context.theme,
                 amount: 0.05),
@@ -48,6 +58,18 @@ class PasswordConfirmationInput extends StatelessWidget {
             prefixIcon: Icon(
               Icons.vpn_key_outlined,
               color: context.theme.extension<Palette>()!.foreground,
+            ),
+            suffixIcon: IconButton(
+              splashRadius: 10,
+              icon: Icon(
+                _passwordVisible ? Icons.visibility : Icons.visibility_off,
+                color: context.theme.extension<Palette>()!.foreground,
+              ),
+              onPressed: () {
+                setState(() {
+                  _passwordVisible = !_passwordVisible;
+                });
+              },
             ),
           ),
         ),

@@ -25,6 +25,7 @@ class LoginInput extends StatelessWidget {
           autocorrect: true,
           decoration: InputDecoration(
             filled: true,
+            contentPadding: const EdgeInsets.all(10.0),
             fillColor: ColorService.soften(
                 context.theme.extension<Palette>()!.background!, context.theme,
                 amount: 0.05),
