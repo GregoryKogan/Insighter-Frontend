@@ -11,23 +11,41 @@ class GeofencingService {
   final locationController = Get.put(LocationController());
 
   void startTracking() async {
+    final streamController = StreamController<Position>.broadcast();
+
     LocationSettings locationSettings = getSettings();
-    final sub = Geolocator.getPositionStream(locationSettings: locationSettings)
-        .listen((Position position) {
+    final geoSub =
+        Geolocator.getPositionStream(locationSettings: locationSettings)
+            .listen((Position position) {
+      streamController.sink.add(position);
+    });
+
+    final str = streamController.stream;
+    final sub = str.listen((Position position) {
       print(position);
       locationController.updateLocation(position.latitude, position.longitude);
       exploringService.getNearbyObjects();
       updateAddress();
     });
     locationController.setIsTracking(true);
+    locationController.setLocationStreamController(streamController);
+    locationController.setLocationStream(str);
+    locationController.setGeolocatorStreamSubscription(geoSub);
     locationController.setLocationStreamSubscription(sub);
+
+    Future.delayed(const Duration(seconds: 1), () => fetchLocation());
   }
 
   void stopTracking() {
     if (locationController.locationStreamSubscription.value != null) {
       locationController.locationStreamSubscription.value!.cancel();
     }
+    if (locationController.geolocatorStreamSubscription.value != null) {
+      locationController.geolocatorStreamSubscription.value!.cancel();
+    }
     locationController.setIsTracking(false);
+    locationController.setLocationStream(null);
+    locationController.setGeolocatorStreamSubscription(null);
     locationController.setLocationStreamSubscription(null);
   }
 
@@ -38,7 +56,7 @@ class GeofencingService {
       locationSettings = AndroidSettings(
         accuracy: LocationAccuracy.best,
         distanceFilter: 20,
-        intervalDuration: const Duration(seconds: 1),
+        intervalDuration: const Duration(seconds: 5),
         forceLocationManager: true,
         foregroundNotificationConfig: const ForegroundNotificationConfig(
             notificationTitle: 'MW Insider is tracking your location',
@@ -73,6 +91,9 @@ class GeofencingService {
         desiredAccuracy: LocationAccuracy.best);
 
     locationController.updateLocation(position.latitude, position.longitude);
+    if (locationController.locationStreamController.value != null) {
+      locationController.locationStreamController.value!.sink.add(position);
+    }
     await exploringService.getNearbyObjects();
     await updateAddress();
 

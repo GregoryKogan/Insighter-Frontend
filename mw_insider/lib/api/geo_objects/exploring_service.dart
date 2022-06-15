@@ -27,6 +27,8 @@ class ExploringService {
         nearbyObjects.add({
           'id': geoObject['id'],
           'dist': distance,
+          'lat': geoObject['lat'],
+          'lon': geoObject['lon'],
         });
       }
     }
