@@ -101,6 +101,7 @@ flutter:
 
 flutter_icons:
   image_path: "assets/icon/Insighter.png"
+  adaptive_icon_foreground: "assets/icon/Insighter.png"
+  adaptive_icon_background: "#5a09c3"
   android: true
   ios: true
-  adaptive_icon_background: "#ffffff"

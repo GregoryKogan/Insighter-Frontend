@@ -59,7 +59,7 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
   Widget build(BuildContext context) {
     return GetMaterialApp(
       debugShowCheckedModeBanner: false,
-      title: 'MW Insider',
+      title: 'Insighter',
       initialRoute: '/loading',
       theme: Themes.light,
       darkTheme: Themes.dark,

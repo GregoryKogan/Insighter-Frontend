@@ -59,7 +59,7 @@ class GeofencingService {
         intervalDuration: const Duration(seconds: 5),
         forceLocationManager: true,
         foregroundNotificationConfig: const ForegroundNotificationConfig(
-            notificationTitle: 'MW Insider is tracking your location',
+            notificationTitle: 'Insighter is tracking your location',
             notificationText: 'App is running in background',
             enableWakeLock: true),
       );
