@@ -13,7 +13,7 @@ class MainPage extends StatefulWidget {
   const MainPage({Key? key}) : super(key: key);
 
   static List<StatelessWidget> views = [
-    Stroll(),
+    const Stroll(),
     Home(),
     const Profile(),
     const About(),
